@@ -615,6 +615,102 @@ section {
             flex-shrink: 0;
         }
 
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .form-group .optional {
+            font-weight: 300;
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--black);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: inherit;
+            color: var(--white);
+            background: var(--red);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background: #b91c1c;
+        }
+
+        .form-submit:active {
+            transform: translateY(1px);
+        }
+
+        .form-message {
+            margin-top: 20px;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            display: block;
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .form-message.error {
+            display: block;
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--red);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
 /* Footer */
 .footer {
             padding: 60px 40px;
@@ -684,6 +780,15 @@ section {
     .hero-scroll-indicator {
         bottom: 100px;
     }
+
+    .contact-form {
+        max-width: 100%;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
+    }
 }
     </style>
 </head>
@@ -693,7 +798,7 @@ section {
         <div class="nav-container">
             <a href="#home" class="logo"><img src="Assets/1000124169-Photoroom.png" alt="iDK" class="logo-img"></a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#portfolio" class="nav-link">Designs</a></li>
+                <li><a href="#portfolio" class="nav-link">Projects</a></li>
                 <li><a href="#about" class="nav-link">Services</a></li>
                 <li><a href="#process" class="nav-link">Process</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -721,7 +826,7 @@ section {
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio">
             <div class="section-header">
-            <h2 class="section-title">Kitchen Designs</h2>
+            <h2 class="section-title">Recent Projects</h2>
             <p class="section-subtitle">Kitchens designed for how you live.</p>
             </div>
         <div class="portfolio-grid" id="portfolioGrid">
@@ -777,6 +882,28 @@ section {
             </div>
             <div class="contact-content">
             <p class="contact-text">Ready to get started? We're here to help.</p>
+            
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/meeqbpny" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="optional">(optional)</span></label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message</button>
+                <div class="form-message" id="formMessage"></div>
+            </form>
+
             <div class="contact-links">
                 <a href="mailto:office@idokitchens.com" class="contact-link">office@idokitchens.com</a>
                 <a href="tel:+19178089243" class="contact-link">+1 (917) 808-9243</a>
@@ -831,39 +958,27 @@ const navMenu = document.getElementById('navMenu');
 const portfolioItems = [
     {
         id: 1,
-        title: 'Warm Wood',
-        category: 'Classic',
-        image: 'Assets/Warm Wood Minimal.jpg'
+        title: '38th Street',
+        category: 'Brooklyn, NY',
+        image: 'Assets/38.jpg'
     },
     {
         id: 2,
-        title: 'Blue Gallery',
-        category: 'Modern',
-        image: 'Assets/Modern Blue Gallery.jpg'
+        title: '52nd Street',
+        category: 'Brooklyn, NY',
+        image: 'Assets/52.jpg'
     },
     {
         id: 3,
-        title: 'Brown Interior',
-        category: 'Traditional',
-        image: 'Assets/Modern Brown Interior.jpeg'
+        title: '54th Street',
+        category: 'Brooklyn, NY',
+        image: 'Assets/54 1.jpg'
     },
     {
         id: 4,
-        title: 'Deep Blue',
-        category: 'Luxury',
-        image: 'Assets/Deep Blue Classic.jpg'
-    },
-    {
-        id: 5,
-        title: 'White Space',
-        category: 'Current',
-        image: 'Assets/Simple White Space.jpeg'
-    },
-    {
-        id: 6,
-        title: 'Grey Studio',
-        category: 'Minimal',
-        image: 'Assets/Minimal Grey Studio.jpg'
+        title: '54th Street',
+        category: 'Brooklyn, NY',
+        image: 'Assets/54 2.jpg'
     }
 ];
 
@@ -1032,6 +1147,65 @@ const observerOptions = {
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitButton = contactForm.querySelector('.form-submit');
+                const originalButtonText = submitButton.textContent;
+                
+                // Disable submit button and show loading state
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                formMessage.style.display = 'none';
+                formMessage.className = 'form-message';
+
+                // Get form data
+                const formData = new FormData(contactForm);
+                
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        // Success
+                        formMessage.textContent = 'Thank you! Your message has been sent. We\'ll get back to you soon.';
+                        formMessage.className = 'form-message success';
+                        formMessage.style.display = 'block';
+                        contactForm.reset();
+                    } else {
+                        // Error from Formspree
+                        const data = await response.json();
+                        if (data.errors) {
+                            formMessage.textContent = 'Please check your form and try again.';
+                        } else {
+                            formMessage.textContent = 'Something went wrong. Please try again later.';
+                        }
+                        formMessage.className = 'form-message error';
+                        formMessage.style.display = 'block';
+                    }
+                } catch (error) {
+                    // Network or other error
+                    formMessage.textContent = 'Unable to send message. Please check your connection and try again.';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                } finally {
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+            });
+        }
     </script>
 </body>
 </html>
